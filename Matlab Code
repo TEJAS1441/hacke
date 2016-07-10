@@ -1,0 +1,47 @@
+% Template MATLAB code for reading data from a private channel, analyzing
+% the data and storing the analyzed data in another channel.
+flag=1
+data1=[75,66;60,50]
+data2=data1+0.045
+data3=data1-0.045
+% Prior to running this MATLAB code template, assign the channel ID to read
+% data from to the 'readChannelID' variable. Since this is a private
+% channel, also assign the read API Key to the 'readAPIKey' variable. You
+% can find the read API Key in the right side pane of this page.
+
+% To store the analyzed data, you will need to write it to a channel other
+% than the one you are reading data from. Assign this channel ID to the
+% 'writeChannelID' variable. Also assign the write API Key to the
+% 'writeAPIKey' variable below. You can find the write API Key in the right
+% side pane of this page.
+
+% TODO - Replace the [] with channel ID to read data from:
+readChannelID = 132757;
+% TODO - Enter the Read API Key between the '' below:
+readAPIKey = 'NKRNHYAN31LBUH92';
+
+i=1;j=2;
+
+% TODO - Replace the [] with channel ID to write data to:
+writeChannelID =  132801;
+% TODO - Enter the Write API Key between the '' below:
+writeAPIKey = '8D6MF8QI0PN31042';
+
+%% Read Data %%
+data = thingSpeakRead(readChannelID, 'ReadKey', readAPIKey)
+for k=1:1:2
+    if(data3(i,k)<data(i) && data(i)<data2(i,k))
+        if(data3(j,k)<data(j) && data(j)<data2(j,k))
+        flag=0
+       break
+         end
+    end
+end
+
+%% Analyze Data %%
+% Add code in this section to analyze data and store the result in the
+% analyzedData variable.
+analyzedData = flag;
+
+%% Write Data %%
+thingSpeakWrite(writeChannelID, analyzedData, 'WriteKey', writeAPIKey);
